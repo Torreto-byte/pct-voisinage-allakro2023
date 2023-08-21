@@ -20,4 +20,9 @@
 
     <!-- Main CSS-->
     <link href="{{asset('css/theme.css')}}" rel="stylesheet" media="all">
+
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="{{ asset('vendor/datatables.net-bs4/dataTables.bootstrap4.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('js/select.dataTables.min.css')}}">
+    <!-- End plugin css for this page -->
     

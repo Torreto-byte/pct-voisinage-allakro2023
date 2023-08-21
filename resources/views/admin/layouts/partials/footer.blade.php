@@ -18,8 +18,11 @@
     <script src="{{asset('vendor/circle-progress/circle-progress.min.js')}}"></script>
     <script src="{{asset('vendor/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
     <script src="{{asset('vendor/chartjs/Chart.bundle.min.js')}}"></script>
-    <script src="{{asset('vendor/select2/select2.min.js')}}">
-    </script>
+    <script src="{{asset('vendor/select2/select2.min.js')}}"></script>
+
+    <script src="{{ asset('vendor/datatables.net/jquery.dataTables.js')}}"></script>
+    <script src="{{ asset('vendor/datatables.net-bs4/dataTables.bootstrap4.js')}}"></script>
+    <script src="{{ asset('js/dataTables.select.min.js')}}"></script>
 
     <!-- Main JS-->
     <script src="{{asset('js/main.js')}}"></script>

@@ -68,7 +68,7 @@
 
     <!-- Bouton de soumission -->
     <div class="submit-button">
-      <input type="submit" value="Soumettre">
+      <input type="submit" value="Enregister mon service à 100 FCFA">
     </div>
   </form>
 	<div class="container">
