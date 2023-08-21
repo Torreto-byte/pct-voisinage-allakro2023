@@ -36,6 +36,7 @@
 							<th>DATE & LIEU DE NAISSANCE</th>
 							<th>FONCTION</th>
 							<th>LIEU HABITATION</th>
+							<th>STATUT</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -48,6 +49,7 @@
 								<td>{{ date('d-m-Y', strtotime($item->date_naissanceHabt)) }}</td>
 								<td>{{ $item->fonctionHabt }}</td>
 								<td>{{ $item->lieu_habitation }}</td>
+								<td>{{ $item->statut }}</td>
 								<td>
 									<div class="table-data-feature">
 										<a href="{{ route('editHabitant', $item->id) }}" class="item" data-toggle="tooltip" data-placement="top" title="Modifier">

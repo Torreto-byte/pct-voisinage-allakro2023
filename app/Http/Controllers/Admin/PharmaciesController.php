@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Habitant;
 use App\Models\Pharmacie;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,12 +13,16 @@ class PharmaciesController extends Controller
     public function afficherPharmacie() {
         $items = Pharmacie::all();
 
-        return view('admin.pages.listPharmacie', compact('items'));
+        $countHabitantEnAttente = Habitant::where('statut', 'EN ATTENTE')->count();
+
+        return view('admin.pages.listPharmacie', compact('items', 'countHabitantEnAttente'));
     }
 
 
     public function creation() {
-        return view('admin.pages.addPharmacie');
+        $countHabitantEnAttente = Habitant::where('statut', 'EN ATTENTE')->count();
+
+        return view('admin.pages.addPharmacie', compact('countHabitantEnAttente'));
     }
 
 
@@ -46,7 +51,8 @@ class PharmaciesController extends Controller
 
     public function modifier($id) {
         $edit = Pharmacie::findOrFail($id);
-        return view('admin.pages.editPharmacie', compact('edit'));
+        $countHabitantEnAttente = Habitant::where('statut', 'EN ATTENTE')->count();
+        return view('admin.pages.editPharmacie', compact('edit', 'countHabitantEnAttente'));
     }
 
 

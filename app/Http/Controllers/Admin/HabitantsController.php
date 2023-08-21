@@ -13,12 +13,15 @@ class HabitantsController extends Controller
 
         $items = Habitant::all();
 
-        return view('admin.pages.listHabitant', compact('items'));
+        $countHabitantEnAttente = Habitant::where('statut', 'EN ATTENTE')->count();
+
+        return view('admin.pages.listHabitant', compact('items', 'countHabitantEnAttente'));
     }
 
     
     public function creation() {
-        return view('admin.pages.addHabitant');
+        $countHabitantEnAttente = Habitant::where('statut', 'EN ATTENTE')->count();
+        return view('admin.pages.addHabitant', compact('countHabitantEnAttente'));
     }
 
 
@@ -76,7 +79,8 @@ class HabitantsController extends Controller
 
     public function modifier($id) {
         $edit = Habitant::findOrFail($id);
-        return view('admin.pages.editHabitant', compact('edit'));
+        $countHabitantEnAttente = Habitant::where('statut', 'EN ATTENTE')->count();
+        return view('admin.pages.editHabitant', compact('edit', 'countHabitantEnAttente'));
     }
 
 

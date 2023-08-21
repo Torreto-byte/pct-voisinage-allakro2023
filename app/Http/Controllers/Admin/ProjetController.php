@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Projet;
+use App\Models\Habitant;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -12,12 +13,15 @@ class ProjetController extends Controller
     public function afficherProjet() {
         $items = Projet::all();
 
-        return view('admin.pages.listProjet', compact('items'));
+        $countHabitantEnAttente = Habitant::where('statut', 'EN ATTENTE')->count();
+
+        return view('admin.pages.listProjet', compact('items', 'countHabitantEnAttente'));
     }
 
 
     public function creation() {
-        return view('admin.pages.addProjet');
+        $countHabitantEnAttente = Habitant::where('statut', 'EN ATTENTE')->count();
+        return view('admin.pages.addProjet', compact('countHabitantEnAttente'));
     }
 
 
@@ -46,7 +50,8 @@ class ProjetController extends Controller
 
     public function modifier($id) {
         $edit = Projet::findOrFail($id);
-        return view('admin.pages.editProjet', compact('edit'));
+        $countHabitantEnAttente = Habitant::where('statut', 'EN ATTENTE')->count();
+        return view('admin.pages.editProjet', compact('edit', 'countHabitantEnAttente'));
     }
 
 

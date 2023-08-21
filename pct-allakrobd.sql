@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 18 août 2023 à 20:40
+-- Généré le : lun. 21 août 2023 à 20:34
 -- Version du serveur :  8.0.21
 -- Version de PHP : 7.3.21
 
@@ -107,27 +107,35 @@ CREATE TABLE IF NOT EXISTS `frequenter` (
 DROP TABLE IF EXISTS `habitants`;
 CREATE TABLE IF NOT EXISTS `habitants` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nomHabt` varchar(255) NOT NULL,
-  `prenomHabt` varchar(255) NOT NULL,
-  `contactHabt` varchar(255) NOT NULL,
-  `sexeHabt` varchar(255) NOT NULL,
+  `nomHabt` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `prenomHabt` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `contactHabt` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `sexeHabt` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `date_naissanceHabt` date DEFAULT NULL,
   `date_decesHabt` date DEFAULT NULL,
-  `fonctionHabt` varchar(255) NOT NULL,
-  `mode_naissanceHabt` varchar(255) NOT NULL,
+  `fonctionHabt` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `mode_naissanceHabt` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `mode_decesHabt` varchar(255) DEFAULT NULL,
-  `lieu_habitation` varchar(255) NOT NULL,
+  `lieu_habitation` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `raison_deces` varchar(255) DEFAULT NULL,
-  `nom_prenomPere` varchar(255) NOT NULL,
-  `nom_prenomMere` varchar(255) NOT NULL,
+  `nom_prenomPere` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `nom_prenomMere` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `nom_prenomReferent` varchar(255) DEFAULT NULL,
   `provenance` varchar(255) DEFAULT NULL,
   `mode_heberg` varchar(255) DEFAULT NULL,
   `nouvelle_destination` varchar(255) DEFAULT NULL,
+  `statut` varchar(255) NOT NULL DEFAULT 'EN ATTENTE',
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `habitants`
+--
+
+INSERT INTO `habitants` (`id`, `nomHabt`, `prenomHabt`, `contactHabt`, `sexeHabt`, `date_naissanceHabt`, `date_decesHabt`, `fonctionHabt`, `mode_naissanceHabt`, `mode_decesHabt`, `lieu_habitation`, `raison_deces`, `nom_prenomPere`, `nom_prenomMere`, `nom_prenomReferent`, `provenance`, `mode_heberg`, `nouvelle_destination`, `statut`, `created_at`, `updated_at`) VALUES
+(1, 'Konan', 'Yao', '', 'HOMME', '2023-07-12', NULL, '', 'Maison', NULL, 'Bouaké', NULL, 'Koua Mathieu', 'Yah Brou', NULL, NULL, NULL, NULL, 'ACCEPTER', '2023-08-19 22:41:58', '2023-08-19 22:41:58');
 
 -- --------------------------------------------------------
 
@@ -156,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Déchargement des données de la table `migrations`
@@ -169,7 +177,35 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (5, '2023_08_11_202950_create_pharmacies_table', 2),
 (6, '2023_08_11_212535_create_centre_santes_table', 3),
 (9, '2023_08_15_142629_create_roles_table', 5),
-(10, '2014_10_12_000000_create_users_table', 6);
+(10, '2014_10_12_000000_create_users_table', 6),
+(11, '2023_08_20_111450_create_offre_services_table', 7);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `offre_services`
+--
+
+DROP TABLE IF EXISTS `offre_services`;
+CREATE TABLE IF NOT EXISTS `offre_services` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `noms` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `service` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `qualifications` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contact` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `message` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Déchargement des données de la table `offre_services`
+--
+
+INSERT INTO `offre_services` (`id`, `noms`, `service`, `qualifications`, `contact`, `photo`, `message`, `created_at`, `updated_at`) VALUES
+(1, 'ghvg', 'ugvh', 'iulhui', 'gvjjj', NULL, 'ezsegdh', '2023-08-20 11:56:10', '2023-08-20 11:56:10');
 
 -- --------------------------------------------------------
 
@@ -246,14 +282,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Déchargement des données de la table `users`
 --
 
 INSERT INTO `users` (`id`, `nom`, `prenoms`, `telephone`, `identifiant`, `password`, `role_id`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'ESSOH', 'Wilfried', '0777163605', 'ESSOH', '$2y$10$QiCW0I4ro8YATL32ajQzc.c8dMNGRWcrfNCl2yrdOUWvuXwgU9GP.', 1, NULL, '2023-08-15 14:40:57', '2023-08-15 14:40:57');
+(1, 'ESSOH', 'Wilfried', '0777163605', 'ESSOH', '$2y$10$QiCW0I4ro8YATL32ajQzc.c8dMNGRWcrfNCl2yrdOUWvuXwgU9GP.', 1, NULL, '2023-08-15 14:40:57', '2023-08-15 14:40:57'),
+(2, 'test', 'test prenoms', '652651', 'test', '$2y$10$8vBdvHkNe.W36AXtAsx6FerA2aHxpTsprTpZ5NVcf1ZMrr/q1.qD.', 3, NULL, '2023-08-20 12:25:25', '2023-08-20 12:25:25');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

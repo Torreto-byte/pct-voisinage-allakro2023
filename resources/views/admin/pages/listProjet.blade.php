@@ -41,7 +41,7 @@
 							<tr class="tr-shadow">
 								<td>{{ $item->nomPrj }}</td>
 								<td>{{ $item->autPrj }}</td>
-								<td>{{ $item->datePrj }}</td>
+								<td>{{ date('d-m-Y', strtotime($item->datePrj)) }}</td>
 								<td>
 									<div class="table-data-feature">
 										<a href="{{ route('editProjet', $item->id) }}" class="item" data-toggle="tooltip" data-placement="top" title="Modifier">

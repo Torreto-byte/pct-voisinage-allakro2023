@@ -17,6 +17,8 @@ class HomeController extends Controller
         $getCountCentre = CentreSante::all();
         $getCountHabitant = Habitant::all();
 
-        return view('admin.pages.home', compact('getCountMaladie', 'getCountPharmacie', 'getCountCentre','getCountHabitant'));
+        $countHabitantEnAttente = Habitant::where('statut', 'EN ATTENTE')->count();
+
+        return view('admin.pages.home', compact('getCountMaladie', 'getCountPharmacie', 'getCountCentre','getCountHabitant', 'countHabitantEnAttente'));
     }
 }

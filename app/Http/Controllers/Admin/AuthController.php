@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -13,6 +15,41 @@ class AuthController extends Controller
 {
     public function login() {
         return view('admin/pages/login');
+    }
+
+
+    public function register() {
+        return view('admin.pages.register');
+    }
+
+
+    public function created(Request $request) {
+
+        $validator =  Validator::make($request->all(), [
+            'nom'      => 'required',
+            'prenoms'      => 'required',
+            'telephone'   => 'required',
+            'identifiant'     => 'required',
+            'password'      => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $add = new User();
+
+        $add->nom = $request->nom;
+        $add->prenoms = $request->prenoms;
+        $add->telephone = $request->telephone;
+        $add->identifiant = $request->identifiant;
+        $add->password = Hash::make($request->password);
+        $add->role_id = 3;
+
+        $add->save();
+
+        return redirect()->back()->with('message', 'Enregistrement effectué avec succès, veuillez vous connecter avec vos accès !');
+
     }
 
 
@@ -52,7 +89,7 @@ class AuthController extends Controller
 
             switch (Session::get('role_id')) {
                 case 3:
-                    return redirect()->route('frontHomePage');
+                    return redirect()->route('webSiteHome');
                     break;
                 
                 default:

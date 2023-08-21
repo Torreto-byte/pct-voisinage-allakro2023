@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Maladie;
+use App\Models\Habitant;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -13,12 +14,16 @@ class MaladiesController extends Controller
     public function afficherMaladies() {
         $items = Maladie::all();
 
-        return view('admin.pages.listMaladie', compact('items'));
+        $countHabitantEnAttente = Habitant::where('statut', 'EN ATTENTE')->count();
+
+        return view('admin.pages.listMaladie', compact('items', 'countHabitantEnAttente'));
     }
 
 
     public function creation() {
-        return view('admin.pages.addMaladie');
+        $countHabitantEnAttente = Habitant::where('statut', 'EN ATTENTE')->count();
+
+        return view('admin.pages.addMaladie', compact('countHabitantEnAttente'));
     }
 
 
@@ -43,7 +48,8 @@ class MaladiesController extends Controller
 
     public function modifier($id) {
         $edit = Maladie::findOrFail($id);
-        return view('admin.pages.editMaladie', compact('edit'));
+        $countHabitantEnAttente = Habitant::where('statut', 'EN ATTENTE')->count();
+        return view('admin.pages.editMaladie', compact('edit', 'countHabitantEnAttente'));
     }
 
 

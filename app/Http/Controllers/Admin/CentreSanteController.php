@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Habitant;
 use App\Models\CentreSante;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,12 +13,16 @@ class CentreSanteController extends Controller
     public function afficherCentre() {
         $items = CentreSante::all();
 
-        return view('admin.pages.listCentre', compact('items'));
+        $countHabitantEnAttente = Habitant::where('statut', 'EN ATTENTE')->count();
+
+        return view('admin.pages.listCentre', compact('items', 'countHabitantEnAttente'));
     }
 
 
     public function creation() {
-        return view('admin.pages.addCentre');
+        $countHabitantEnAttente = Habitant::where('statut', 'EN ATTENTE')->count();
+
+        return view('admin.pages.addCentre', compact('countHabitantEnAttente'));
     }
 
 
@@ -46,7 +51,10 @@ class CentreSanteController extends Controller
 
     public function modifier($id) {
         $edit = CentreSante::findOrFail($id);
-        return view('admin.pages.editCentre', compact('edit'));
+
+        $countHabitantEnAttente = Habitant::where('statut', 'EN ATTENTE')->count();
+        
+        return view('admin.pages.editCentre', compact('edit', 'countHabitantEnAttente'));
     }
 
 

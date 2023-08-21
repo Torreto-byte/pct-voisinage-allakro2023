@@ -23,8 +23,13 @@
             </div>
             <ul class="nav">
               <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Aide</a></li>
-              <li class="nav-item"><a href="{{ route('login') }}" class="nav-link link-body-emphasis px-2">Connexion</a></li>
-              <li class="nav-item"><a href="#" class="nav-link link-body-emphasis px-2">Inscription</a></li>
+              
+                @if ( Session::get('user_id') )
+                  <li class="nav-item"><a href="{{ route('logout') }}" type="button" class="btn btn-danger px-4 me-sm-3 fw-bold">Déconnexion</a></li>
+                @else
+                  <li class="nav-item"><a href="{{ route('login') }}" class="nav-link link-body-emphasis px-2">Connexion</a></li>
+                  <li class="nav-item"><a href="{{ route('register') }}" class="nav-link link-body-emphasis px-2">Inscription</a></li>
+                @endif
             </ul>
           </div>
         </div>
@@ -39,27 +44,30 @@
                 <li>
                   <a class="nav-link" aria-current="page" href="{{ route('webSiteHome') }}">ACCUEIL</a>
                 </li>
-                <li>
+                {{-- <li>
                   <a class="nav-link" aria-current="page" href="#">HABITANTS</a>
+                </li> --}}
+                <li>
+                  <a class="nav-link" href="{{ route('websiteListPharmacie') }}">PHARMACIE</a>
                 </li>
                 <li>
-                  <a class="nav-link" href="pharmacie.html">PHARMACIE</a>
+                  <a class="nav-link" href="{{ route('websiteListCentre') }}">CENTRE DE SANTE</a>
                 </li>
                 <li>
-                  <a class="nav-link" href="dashboard.html">CENTRE DE SANTE</a>
+                  <a class="nav-link" aria-current="page" href="{{ route('websiteListProjet') }}">PROJET</a>
                 </li>
-                <li>
-                  <a class="nav-link" aria-current="page" href="maladie.html">MALADIE</a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">AJOUT</a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="Naissance.html">NAISSANCE</a></li>
-                    <li><a class="dropdown-item" href="deces.html">DECES</a></li>
-                    <li><a class="dropdown-item" href="amenagement.html">AMENAGEMENT</a></li>
-                    <li><a class="dropdown-item" href="demenagement.html">DEMENAGEMENT</a></li>
-                  </ul>
-                </li>
+                @if (Session::get('user_id'))
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">AJOUT</a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="{{ route('websiteNaissance') }}">NAISSANCE</a></li>
+                      <li><a class="dropdown-item" href="{{ route('websiteDeces') }}">DECES</a></li>
+                      <li><a class="dropdown-item" href="{{ route('websiteAmenagement') }}">AMENAGEMENT</a></li>
+                      <li><a class="dropdown-item" href="{{ route('websiteDemenagement') }}">DEMENAGEMENT</a></li>
+                    </ul>
+                  </li>
+                @endif
+                
               </ul>
             </div>
           </div>
@@ -81,7 +89,8 @@
 
       <div class="container px-4 py-5" id="custom-cards">
         <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
-          <a href="sign-in.html">
+
+          {{-- <a href="sign-in.html">
             <div class="col">
               <div class="card card-cover h-100 overflow-hidden rounded-4 shadow-lg" style="background-image: url('/front/IMG/coup-moyen-femmes-posant-au-marche.jpg');">
                 <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
@@ -92,9 +101,9 @@
                 </div>
               </div>
             </div>
-          </a>
+          </a> --}}
 
-          <a href="pharmacie.html">
+          <a href="{{ route('websiteListPharmacie') }}">
             <div class="col">
               <div class="card card-cover h-100 overflow-hidden rounded-4 shadow-lg" style="background-image: url('');">
                 <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
@@ -107,7 +116,7 @@
             </div>
           </a>
           
-          <a href="dashboard.html">
+          <a href="{{ route('websiteListCentre') }}">
             <div class="col">
               <div class="card card-cover h-100 overflow-hidden rounded-4 shadow-lg" style="background-image: url('/front/IMG/Hospital\ building\ exterior\ modern\ clinic\ view.jpeg');">
                 <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
@@ -120,7 +129,7 @@
             </div>
           </a>
 
-          <a href="maladie.html">
+          {{-- <a href="maladie.html">
             <div class="col">
               <div class="card card-cover h-100 overflow-hidden rounded-4 shadow-lg" style="background-image: url('IMG/Sick\ african-american\ man\ drinking.jpeg');">
                 <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
@@ -131,9 +140,9 @@
                 </div>
               </div>
             </div>
-          </a>
+          </a> --}}
           
-          <a href="projet.html">
+          <a href="{{ route('websiteListProjet') }}">
             <div class="col">
               <div class="card card-cover h-100 overflow-hidden rounded-4 shadow-lg" style="background-image: url('');">
                 <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
@@ -146,11 +155,11 @@
             </div>
           </a>
           
-          <a href="formulaire.html">
+          <a href="{{ route('websiteFormulaire') }}">
             <div class="col">
               <div class="card card-cover h-100 overflow-hidden rounded-4 shadow-lg" style="background-image: url('');">
                 <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                  <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Chercheurs d'emplois</h3>
+                  <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Proposition de service</h3>
                   <ul class="d-flex list-unstyled mt-auto">
                     <small>En savoir plus</small>
                   </ul>
@@ -162,21 +171,6 @@
       </div>
 
       <div class="container">
-        <footer class="py-3 my-4">
-          <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-            <li class="nav-item"><a href="index.html" class="nav-link px-2 text-body-secondary">Accueil</a></li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle px-2 text-body-secondary" href="#" data-bs-toggle="dropdown" aria-expanded="false">Ajout</a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="Naissance.html">NAISSANCE</a></li>
-                <li><a class="dropdown-item" href="deces.html">DECES</a></li>
-                <li><a class="dropdown-item" href="amenagement.html">AMENAGEMENT</a></li>
-                <li><a class="dropdown-item" href="demenagement.html">DEMENAGEMENT</a></li>
-              </ul>
-            </li>
-            <li class="nav-item"><a href="tableau de bords.html" class="nav-link px-2 text-body-secondary">Admin</a></li>
-            <li class="nav-item"><a href="sign-in.html" class="nav-link px-2 text-body-secondary">Connexion</a></li>
-          </ul>
           <p class="text-center text-body-secondary">&copy; 2023 UVCI (Tout droit reservés), GROUPE1-BD-DAS - RAJ22-23</p>
         </footer>
       </div>

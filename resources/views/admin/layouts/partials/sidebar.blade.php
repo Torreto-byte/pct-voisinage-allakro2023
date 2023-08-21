@@ -74,6 +74,19 @@
                         </li>
                     </ul>
                 </li>
+
+                <li class="has-sub">
+                    <a class="js-arrow" href="#">
+                        <i class="fas fa-user"></i>Utilisateurs</a>
+                    <ul class="list-unstyled navbar__sub-list js-sub-list">
+                        <li>
+                            <a href="{{ route('addProjet') }}">Enregistrer un utilisateur </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('listProjet') }}">Liste des utilisateurs</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </div>
